@@ -3,11 +3,15 @@ const express = require(`express`);
 const bodyParser = require(`body-parser`);
 const cookieParser = require(`cookie-parser`);
 const path = require(`path`);
+const db = require(`./db`);
+const multer = require('multer');
 const app = express();
 const port = 5000;
 
 const authRoute = require(`./app/routes/auth.route`);
 const userRoute = require(`./app/routes/user.route`);
+const homeRoute = require(`./app/routes/home.route`);
+const testRoute = require(`./app/routes/test.route`);
 
 const sessionMiddleware = require(`./app/middleware/session.middleware`);
 
@@ -25,16 +29,10 @@ app.use(sessionMiddleware);
 
 app.use(express.static(path.join(__dirname, `public`)));
 
-// localhost:5000
-app.route(`/`)
-    .get((req, res) => {
-        res.render(`index`);
-    });
-
-// localhost:5000/auth
+// route
+app.use(`/`, homeRoute);
 app.use(`/auth`, authRoute);
-
-// localhost:5000/users
 app.use(`/users`, userRoute);
+app.use(`/test`, testRoute);
 
 app.listen(port, () => console.log(`App listening on port, ` + port));

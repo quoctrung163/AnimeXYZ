@@ -12,10 +12,6 @@ module.exports.postCreate = (req, res, next) => {
         errors.push('Bạn chưa nhập mật khẩu.');
     }
 
-    if (!req.body.avatar) {
-        errors.push('Bạn chưa tải ảnh.');
-    }
-
     if (errors.length > 0) {
         res.render('users/create', {
             errors: errors,

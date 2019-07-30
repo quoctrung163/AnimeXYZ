@@ -38,10 +38,15 @@ html
                         li.nav-item
                             a.nav-link(href='#') Lịch Chiếu
                 form(action="").form-inline.my-2.my-lg-0
-                    input.form-control.mr-sm-2(type='search', placeholder='tìm kiếm anime ^^', aria-label="Search")
+                    input.form-control.mr-sm-2(type='search', placeholder='tìm kiếm anime ^^', aria-label="Search") 
 
-                a.navbar-brand(href='/auth/login')
-                    img.rounded-circle.nav-item.dropdown(src="/assets/images/default.png", alt="avatar", width="50px", height="50px")
+                if user
+                    a.navbar-brand(href='/auth/login')
+                        img.rounded-circle.nav-item.dropdown(src=user.avatar, alt="avatar", width="50px", height="50px")
+                else 
+                    a.navbar-brand(href='/auth/login')
+                        img.rounded-circle.nav-item.dropdown(src="/assets/images/default.png", alt="avatar", width="50px", height="50px")
+
         .container.pt-5
             block content
         script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js')
