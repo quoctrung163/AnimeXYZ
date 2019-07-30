@@ -40,27 +40,7 @@ module.exports.postCreate = function (req, res, next) {
     req.body.id = shortid.generate();
     req.body.avatar = req.file.path.split('/').slice(1).join('/');
     req.body.password = md5(req.body.password);
-    let errors = [];
 
-    if (!req.body.name) {
-        errors.push('Bạn chưa nhập họ tên!');
-    }
-
-    if (!req.body.email) {
-        errors.push('Bạn chưa nhập email!');
-    }
-
-    if (!req.body.password) {
-        errors.push('Bạn chưa nhập mật khẩu!');
-    }
-
-    if (errors.length) {
-        res.render('users/create', {
-            errors: errors,
-            values: req.body
-        });
-        return;
-    }
     db.get('users').push(req.body).write();
     res.redirect('/users');
 };
