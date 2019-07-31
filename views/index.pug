@@ -1,18 +1,20 @@
 extends ./layouts/common.pug
 
 block header
-    .row.justify-content-start
-        .item
-            .overlay
-                .play-button
-                    i.far.fa-play-circle.fa-4x
-                .info
-                    .title
-                        a(href='#') Tokyo Ghoul
-                    .ep
-                        a(href='#') 1/??
-                .count
-                    .view-count
-                        .overlay-count
-                            i.far.fa-eye.fa-sm
-                            |  2302
+    .row.justify-content-start 
+            each item in items
+                .col-xl-4.col-lg-3
+                    .item.mb-4
+                        .overlay
+                            .play-button
+                                i.far.fa-play-circle.fa-4x(style='color: #fff')
+                            .info
+                                .title
+                                    a(href='#')= item.title
+                                .ep
+                                    a(href='#') 1/??
+                            .count
+                                .view-count
+                                    .overlay-count
+                                        i.far.fa-eye.fa-sm
+                                        |  2302

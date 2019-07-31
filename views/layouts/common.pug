@@ -41,9 +41,8 @@ html(lang="en")
                                 a.nav-link(href='#') BXH
                             li.nav-item
                                 a.nav-link(href='#') Lịch Chiếu
-                    form(action="").form-inline.my-2.my-lg-0
-                        input.form-control.mr-sm-2(type='search', placeholder='tìm kiếm anime ^^', aria-label="Search") 
-
+                    form(action="/search/", method="GET").form-inline.my-2.my-lg-0
+                        input.form-control.mr-sm-2(type='search', name="q", placeholder='tìm kiếm anime ^^', aria-label="Search") 
                     if user
                         a.navbar-brand(href='/auth/login')
                             img.rounded-circle.nav-item.dropdown(src='/'+ user.avatar, alt="avatar", width="50px", height="50px")
