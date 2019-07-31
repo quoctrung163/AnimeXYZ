@@ -1,4 +1,4 @@
-var db = require('../../db');
+const db = require('../../db');
 
 module.exports.requireAuth = function (req, res, next) {
     if (!req.signedCookies.userId) {
@@ -6,7 +6,7 @@ module.exports.requireAuth = function (req, res, next) {
         return;
     }
 
-    var user = db.get('users').find({
+    let user = db.get('users').find({
         id: req.signedCookies.userId
     }).value();
 
@@ -19,3 +19,12 @@ module.exports.requireAuth = function (req, res, next) {
 
     next();
 };
+
+module.exports.checkAuth = (req, res, next) => {
+    let user = db.get('users').find({
+        id: req.signedCookies.userId
+    }).value();
+
+    res.locals.user = user;
+    next();
+}

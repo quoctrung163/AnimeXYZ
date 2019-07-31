@@ -1,7 +1,7 @@
 extends ../layouts/common.pug
 
-block content
-    h1.mt-5 Create user
+block header
+    h1 Create user
 
     if errors
         each error in errors
@@ -21,7 +21,7 @@ block content
             input#password.form-control(name="password", type="password", value=values ? values.password : "")
         
         .form-group
-            label(for="avatar") Avatar
+            label(for="avatar") Avatar (Bug, phải tải ảnh lên thì mới tạo được)
             input#avatar.form-control-file(name="avatar", type="file")
 
         button.btn.btn-primary Create
