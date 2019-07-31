@@ -2,87 +2,17 @@ extends ./layouts/common.pug
 
 block header
     .row.justify-content-start
-        .col-md-3.col-sm-6
-            .product-grid6
-                .product-image6
-                    a(href='#')
-                        img.pic-1(src='http://bestjquery.com/tutorial/product-grid/demo10/images/img-1.jpg')
-                .product-content
-                    h3.title
-                        a(href='#') Men's Shirt
-                    .price
-                        | $11.00
-                        span $14.00
-                ul.social
-                    li
-                        a(href='', data-tip='Quick View')
-                            i.fa.fa-search
-                    li
-                        a(href='', data-tip='Add to Wishlist')
-                            i.fa.fa-shopping-bag
-                    li
-                        a(href='', data-tip='Add to Cart')
-                            i.fa.fa-shopping-cart
-        .col-md-3.col-sm-6
-            .product-grid6
-                .product-image6
-                    a(href='#')
-                        img.pic-1(src='http://bestjquery.com/tutorial/product-grid/demo10/images/img-2.jpg')
-                .product-content
-                    h3.title
-                        a(href='#') Women's Red Top
-                    .price
-                        | $8.00
-                        span $12.00
-                ul.social
-                    li
-                        a(href='', data-tip='Quick View')
-                            i.fa.fa-search
-                    li
-                        a(href='', data-tip='Add to Wishlist')
-                            i.fa.fa-shopping-bag
-                    li
-                        a(href='', data-tip='Add to Cart')
-                            i.fa.fa-shopping-cart
-        .col-md-3.col-sm-6
-            .product-grid6
-                .product-image6
-                    a(href='#')
-                        img.pic-1(src='http://bestjquery.com/tutorial/product-grid/demo10/images/img-3.jpg')
-                .product-content
-                    h3.title
-                        a(href='#') Men's Shirt
-                    .price
-                        | $11.00
-                        span $14.00
-                ul.social
-                    li
-                        a(href='', data-tip='Quick View')
-                            i.fa.fa-search
-                    li
-                        a(href='', data-tip='Add to Wishlist')
-                            i.fa.fa-shopping-bag
-                    li
-                        a(href='', data-tip='Add to Cart')
-                            i.fa.fa-shopping-cart
-        .col-md-3.col-sm-6
-            .product-grid6
-                .product-image6
-                    a(href='#')
-                        img.pic-1(src='http://bestjquery.com/tutorial/product-grid/demo10/images/img-4.jpg')
-                .product-content
-                    h3.title
-                        a(href='#') Men's Shirt
-                    .price
-                        | $11.00
-                        span $14.00
-                ul.social
-                    li
-                        a(href='', data-tip='Quick View')
-                            i.fa.fa-search
-                    li
-                        a(href='', data-tip='Add to Wishlist')
-                            i.fa.fa-shopping-bag
-                    li
-                        a(href='', data-tip='Add to Cart')
-                            i.fa.fa-shopping-cart
+        .item
+            .overlay
+                .play-button
+                    i.far.fa-play-circle.fa-4x
+                .info
+                    .title
+                        a(href='#') Tokyo Ghoul
+                    .ep
+                        a(href='#') 1/??
+                .count
+                    .view-count
+                        .overlay-count
+                            i.far.fa-eye.fa-sm
+                            |  2302
