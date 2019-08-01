@@ -13,6 +13,10 @@ const authRoute = require(`./app/routes/auth.route`);
 const userRoute = require(`./app/routes/user.route`);
 const homeRoute = require(`./app/routes/home.route`);
 
+// require middleware
+const authMiddleware = require('./app/middleware/auth.middleware');
+const sessionMiddleware = require('./app/middleware/session.middleware');
+
 // using template engine
 app.set(`view engine`, `pug`);
 app.set(`views`, `./views`);
@@ -24,6 +28,7 @@ app.use(bodyParser.urlencoded({
 
 // using cookie for save session login user
 app.use(cookieParser(process.env.SESSION_SECRET));
+app.use(sessionMiddleware);
 
 // static file
 app.use(express.static(path.join(__dirname, `public`)));
