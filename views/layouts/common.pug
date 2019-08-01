@@ -44,10 +44,10 @@ html(lang="en")
                     form(action="/search/", method="GET").form-inline.my-2.my-lg-0
                         input.form-control.mr-sm-2(type='search', name="q", placeholder='tìm kiếm anime ^^', aria-label="Search") 
                     if user
-                        a.navbar-brand(href='/auth/login')
+                        a.navbar-brand(href='/users/' + user.id)
                             img.rounded-circle.nav-item.dropdown(src='/'+ user.avatar, alt="avatar", width="50px", height="50px")
                     else 
-                        a.navbar-brand(href='/auth/login')
+                        a.navbar-brand(href='/users/')
                             img.rounded-circle.nav-item.dropdown(src="/assets/images/default.png", alt="avatar", width="50px", height="50px")
         .container.pt-5
             block  header

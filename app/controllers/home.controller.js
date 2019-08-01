@@ -83,7 +83,8 @@ module.exports.index = function (req, res, next) {
         endPage: countAllPages,
         allPagesShow: allPagesShow,
         dotAfter: dotAfter,
-        dotBefore: dotBefore
+        dotBefore: dotBefore,
+        users: db.get('users').value()
     });
     next();
 };
@@ -175,7 +176,8 @@ module.exports.search = function (req, res, next) {
         endPage: countAllPages,
         allPagesShow: allPagesShow,
         dotAfter: dotAfter,
-        dotBefore: dotBefore
+        dotBefore: dotBefore,
+        users: db.get('users').value()
     });
     next();
 }
