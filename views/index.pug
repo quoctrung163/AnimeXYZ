@@ -2,19 +2,48 @@ extends ./layouts/common.pug
 
 block header
     .row.justify-content-start 
-            each item in items
-                .col-xl-4.col-lg-3
-                    .item.mb-4
-                        .overlay
-                            .play-button
-                                i.far.fa-play-circle.fa-4x(style='color: #fff')
-                            .info
-                                .title
-                                    a(href='#')= item.title
-                                .ep
-                                    a(href='#') 1/??
-                            .count
-                                .view-count
-                                    .overlay-count
-                                        i.far.fa-eye.fa-sm
-                                        |  2302
+        each item in items
+            .col-xl-4.col-lg-3
+                .item.mb-4
+                    .overlay
+                        .play-button
+                            i.far.fa-play-circle.fa-4x(style='color: #fff')
+                        .info
+                            .title
+                                a(href='#')= item.title
+                            .ep
+                                a(href='#') 1/??
+                        .count
+                            .view-count
+                                .overlay-count
+                                    i.far.fa-eye.fa-sm
+                                    |  2302
+
+    nav
+        ul.pagination
+            if(pageNow === 1)
+                li.page-item.disabled
+                    a.page-link(href="#")| Previous
+            else          
+                li.page-item
+                    a.page-link(href= homePage + "/?page=" + pagePrev + querySearch)| Previous
+            if(dotBefore)
+                li.page-item
+                    a.page-link(href= homePage + "/?page=1" + querySearch)| ...
+
+            each item in allPagesShow
+                if(pageNow === item)
+                    li.page-item.active
+                        a.page-link(href= homePage + "/?page="+ item + querySearch)=item
+                else
+                    li.page-item
+                        a.page-link(href= homePage + "/?page="+ item + querySearch)=item
+            if(dotAfter)
+                li.page-item
+                    a.page-link(href= homePage + "/?page=" + endPage + querySearch)| ...
+            if(pageNow === endPage)
+                li.page-item.disabled
+                    a.page-link(href="#")| Next
+            else
+                li.page-item
+                    a.page-link(href= homePage + "/?page=" + pageNext + querySearch)| Next
