@@ -41,6 +41,12 @@ html(lang="en")
                                 a.nav-link(href='#') BXH
                             li.nav-item
                                 a.nav-link(href='#') Lịch Chiếu
+                            if(countViewItem)
+                                li.nav-item
+                                    span= countViewItem
+                            if(countKeyItem)
+                                li.nav-item
+                                    span= countKeyItem
                     form(action="/search/", method="GET").form-inline.my-2.my-lg-0
                         input.form-control.mr-sm-2(type='search', name="q", placeholder='tìm kiếm anime ^^', aria-label="Search") 
                     if user
@@ -51,9 +57,11 @@ html(lang="en")
                             img.rounded-circle.nav-item.dropdown(src="/assets/images/default.png", alt="avatar", width="50px", height="50px")
                     
                     if(countItem)
-                        span= " (" + countItem + ")"
+                        span= " (" + countItem + ")" + "View Click User"
                     else
-                        span 0 (value)
+                        span 0 (view User)
+                    
+
         .container.pt-5
             block  header
         script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js')

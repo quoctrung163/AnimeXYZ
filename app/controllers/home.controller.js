@@ -1,6 +1,8 @@
 const db = require('../../db');
 
 module.exports.index = function (req, res, next) {
+    let sessionId = req.signedCookies.sessionId;
+
     let homePage = '';
     let querySearch = '';
     let page = parseInt(req.query.page) || 1; // default 1
@@ -12,7 +14,7 @@ module.exports.index = function (req, res, next) {
     let itemsAll = db.get('items').value();
     let items = itemsAll.slice(start, end);
 
-    var sessionId = req.signedCookies.sessionId;
+    // count view user on all cart
     let allItem = db.get('sessions').find({
         id: sessionId
     }).get('cart').value();
@@ -21,6 +23,42 @@ module.exports.index = function (req, res, next) {
     for (let item in allItem) {
         countItem += allItem[item];
     }
+
+    // count view all user on all cart
+    let viewItem = db.get('sessions').value();
+    let countViewItem = 0;
+    for (var i = 0; i < viewItem.length; i++) {
+        for (var item in viewItem[i].cart) {
+            countViewItem += viewItem[i].cart[item];
+        }
+    }
+
+    // count view all user on one cart
+    let getItem = db.get('items').value();
+    let itemId = getItem.id;
+
+    let itemIdOnSessions;
+    for (let i = 0; i < viewItem.length; i++) {
+        itemIdOnSessions = viewItem[i].cart;
+    }
+
+    let keyItemSessions = Object.keys(itemIdOnSessions);
+
+    let objectKeyItemSessions;
+    for (let i = 0; i < keyItemSessions.length; i++) {
+        objectKeyItemSessions = keyItemSessions[i];
+    }
+
+    let countKeyItem = 0;
+    for (var i = 0; i < viewItem.length; i++) {
+        for (var item in viewItem[i].cart) {
+            if (itemId == objectKeyItemSessions) {
+                countKeyItem += viewItem[i].cart[item];
+            }
+        }
+    }
+
+    //
 
     let countAllPages = Math.ceil(itemsAll.length / perPage);
     let allPagesShow = [];
@@ -95,7 +133,9 @@ module.exports.index = function (req, res, next) {
         dotAfter: dotAfter,
         dotBefore: dotBefore,
         users: db.get('users').value(),
-        countItem: countItem
+        countItem: countItem,
+        countViewItem: countViewItem,
+        countKeyItem: countKeyItem
     });
     next();
 };
