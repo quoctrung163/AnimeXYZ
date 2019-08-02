@@ -49,6 +49,11 @@ html(lang="en")
                     else 
                         a.navbar-brand(href='/users/')
                             img.rounded-circle.nav-item.dropdown(src="/assets/images/default.png", alt="avatar", width="50px", height="50px")
+                    
+                    if(countItem)
+                        span= " (" + countItem + ")"
+                    else
+                        span err
         .container.pt-5
             block  header
         script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js')

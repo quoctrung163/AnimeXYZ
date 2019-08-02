@@ -12,6 +12,16 @@ module.exports.index = function (req, res, next) {
     let itemsAll = db.get('items').value();
     let items = itemsAll.slice(start, end);
 
+    var sessionId = req.signedCookies.sessionId;
+    let allItem = db.get('sessions').find({
+        id: sessionId
+    }).get('cart').value();
+
+    let countItem = 0;
+    for (let item in allItem) {
+        countItem += allItem[item];
+    }
+
     let countAllPages = Math.ceil(itemsAll.length / perPage);
     let allPagesShow = [];
     let dotBefore = false;
@@ -84,7 +94,8 @@ module.exports.index = function (req, res, next) {
         allPagesShow: allPagesShow,
         dotAfter: dotAfter,
         dotBefore: dotBefore,
-        users: db.get('users').value()
+        users: db.get('users').value(),
+        countItem: countItem
     });
     next();
 };
