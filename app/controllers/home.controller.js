@@ -1,23 +1,27 @@
-const db = require('../../db');
+const db = require("../../db");
 
 module.exports.index = function (req, res, next) {
     let sessionId = req.signedCookies.sessionId;
 
-    let homePage = '';
-    let querySearch = '';
+    let homePage = "";
+    let querySearch = "";
     let page = parseInt(req.query.page) || 1; // default 1
     let perPage = 4;
 
     let start = (page - 1) * perPage;
     let end = page * perPage;
 
-    let itemsAll = db.get('items').value();
+    let itemsAll = db.get("items").value();
     let items = itemsAll.slice(start, end);
 
     // count view user on all cart
-    let allItem = db.get('sessions').find({
-        id: sessionId
-    }).get('cart').value();
+    let allItem = db
+        .get("sessions")
+        .find({
+            id: sessionId
+        })
+        .get("cart")
+        .value();
 
     let countItem = 0;
     for (let item in allItem) {
@@ -25,7 +29,7 @@ module.exports.index = function (req, res, next) {
     }
 
     // count view all user on all cart
-    let viewItem = db.get('sessions').value();
+    let viewItem = db.get("sessions").value();
     let countViewItem = 0;
     for (var i = 0; i < viewItem.length; i++) {
         for (var item in viewItem[i].cart) {
@@ -34,30 +38,15 @@ module.exports.index = function (req, res, next) {
     }
 
     // count view all user on one cart
-    let getItem = db.get('items').value();
-    let itemId = getItem.id;
-
-    let itemIdOnSessions;
-    for (let i = 0; i < viewItem.length; i++) {
-        itemIdOnSessions = viewItem[i].cart;
-    }
-
-    let keyItemSessions = Object.keys(itemIdOnSessions);
-
-    let objectKeyItemSessions;
-    for (let i = 0; i < keyItemSessions.length; i++) {
-        objectKeyItemSessions = keyItemSessions[i];
-    }
-
-    let countKeyItem = 0;
+    let itemAnimeId = req.signedCookies.itemAnimeId;
+    let countViewItemAnime = 0;
     for (var i = 0; i < viewItem.length; i++) {
         for (var item in viewItem[i].cart) {
-            if (itemId == objectKeyItemSessions) {
-                countKeyItem += viewItem[i].cart[item];
+            if (itemAnimeId == item) {
+                countViewItemAnime += viewItem[i].cart[item];
             }
         }
     }
-
     //
 
     let countAllPages = Math.ceil(itemsAll.length / perPage);
@@ -107,21 +96,20 @@ module.exports.index = function (req, res, next) {
     }
 
     if (page === 1 && page < countAllPages) {
-
         if (countAllPages >= 3) {
             allPagesShow = [1, 2, 3];
         }
     }
 
     if (page === countAllPages - 1 && countAllPages > 3) {
-        allPagesShow = [page - 1, page, page + 1]
+        allPagesShow = [page - 1, page, page + 1];
     }
 
     if (page === countAllPages && countAllPages > 3) {
-        allPagesShow = [page - 2, page - 1, page]
+        allPagesShow = [page - 2, page - 1, page];
     }
 
-    res.render('index', {
+    res.render("index", {
         homePage: homePage,
         querySearch: querySearch,
         items: items,
@@ -132,21 +120,24 @@ module.exports.index = function (req, res, next) {
         allPagesShow: allPagesShow,
         dotAfter: dotAfter,
         dotBefore: dotBefore,
-        users: db.get('users').value(),
+        users: db.get("users").value(),
         countItem: countItem,
         countViewItem: countViewItem,
-        countKeyItem: countKeyItem
+        countViewItemAnime: countViewItemAnime
     });
     next();
 };
 
 module.exports.search = function (req, res, next) {
     let q = req.query.q;
-    let homePage = '/search';
-    let querySearch = '&q=' + q;
-    let mathchedItems = db.get('items').value().filter(function (item) {
-        return item.title.toLowerCase().indexOf(q.toLowerCase()) !== -1;
-    });
+    let homePage = "/search";
+    let querySearch = "&q=" + q;
+    let mathchedItems = db
+        .get("items")
+        .value()
+        .filter(function (item) {
+            return item.title.toLowerCase().indexOf(q.toLowerCase()) !== -1;
+        });
 
     let page = parseInt(req.query.page) || 1; // default
     let perPage = 4;
@@ -203,21 +194,20 @@ module.exports.search = function (req, res, next) {
     }
 
     if (page === 1 && page < countAllPages) {
-
         if (countAllPages >= 3) {
             allPagesShow = [1, 2, 3];
         }
     }
 
     if (page === countAllPages - 1 && countAllPages > 3) {
-        allPagesShow = [page - 1, page, page + 1]
+        allPagesShow = [page - 1, page, page + 1];
     }
 
     if (page === countAllPages && countAllPages > 3) {
-        allPagesShow = [page - 2, page - 1, page]
+        allPagesShow = [page - 2, page - 1, page];
     }
 
-    res.render('index', {
+    res.render("index", {
         homePage: homePage,
         querySearch: querySearch,
         items: items,
@@ -228,7 +218,7 @@ module.exports.search = function (req, res, next) {
         allPagesShow: allPagesShow,
         dotAfter: dotAfter,
         dotBefore: dotBefore,
-        users: db.get('users').value()
+        users: db.get("users").value()
     });
     next();
-}
+};

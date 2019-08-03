@@ -4,6 +4,10 @@ module.exports.addToCart = function (req, res, next) {
     var itemAnimeId = req.params.itemAnimeId;
     var sessionId = req.signedCookies.sessionId;
 
+    res.cookie('itemAnimeId', itemAnimeId, {
+        signed: true
+    });
+
     if (!sessionId) {
         res.redirect('/');
         return;
@@ -25,4 +29,5 @@ module.exports.addToCart = function (req, res, next) {
         .write();
 
     res.redirect('/');
+    next();
 };

@@ -17,7 +17,8 @@ block header
                             .view-count
                                 .overlay-count
                                     i.far.fa-eye.fa-sm
-                                    |  2302
+                                        if(countViewItemAnime && item.id)
+                                            span= countViewItemAnime
                 a(href='/items/add/' + item.id) thêm vào danh sách yêu thích
 
     nav
