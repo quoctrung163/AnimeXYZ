@@ -1,5 +1,37 @@
-h1 View user
+extends ../layouts/common
 
-p
-    b Name
-    span= user.name
+block header
+    h1 View user
+
+    p
+        b Name
+        span= user.name
+
+    .row.justify-content-start 
+        each item in items
+            .col-xl-4.col-lg-3
+                .item.mb-4
+                    .overlay
+                        .play-button
+                            i.far.fa-play-circle.fa-4x(style='color: #fff')
+                        .info
+                            .title
+                                a(href='#')= item.title
+                            .ep
+                                a(href='#') 1/??
+                        .count
+                            .view-count
+                                .overlay-count
+                                    i.far.fa-eye.fa-sm
+                                        if(countViewItemAnime && item.id)
+                                            span= countViewItemAnime
+                a(href='/items/add/' + item.id) thêm vào danh sách yêu thích
+
+        table.table
+            tr
+                th Name
+                th Amount
+            each item in arrItem
+                tr
+                    td= item.name
+                    td= item.count

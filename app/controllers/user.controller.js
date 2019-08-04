@@ -25,14 +25,43 @@ module.exports.create = function (req, res) {
 
 
 module.exports.get = function (req, res) {
-    var id = req.params.id;
+    let id = req.params.id;
 
-    var user = db.get('users').find({
+    let page = parseInt(req.query.page) || 1; // default 1
+    let perPage = 8;
+
+    let start = (page - 1) * perPage;
+    let end = page * perPage;
+
+    let itemsAll = db.get("items").value();
+    let items = itemsAll.slice(start, end);
+
+    let user = db.get('users').find({
         id: id
     }).value();
 
+    let sessionId = req.signedCookies.sessionId;
+    let allFavorite = db.get('sessions').find({
+        id: sessionId
+    }).get('cart').value();
+
+    let arrItem = [];
+
+    for (var item in allFavorite) {
+        for (var x of itemsAll) {
+            if (x.id === item) {
+                arrItem.push({
+                    "name": x.name,
+                    "count": arrItem[item]
+                })
+            }
+        }
+    }
+
     res.render('users/view', {
-        user: user
+        user: user,
+        items: items,
+        arrItem: arrItem
     });
 };
 
